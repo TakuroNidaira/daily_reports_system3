@@ -8,14 +8,15 @@ public class DBUtil {
     private static final String PERSISTENCE_UNIT_NAME = "daily_report_system3";
     private static EntityManagerFactory emf;
 
-    public static EntityManager createEntityManager(){
+    public static EntityManager createEntityManager() {
         return getEntityManagerFactory().createEntityManager();
     }
 
     private static EntityManagerFactory getEntityManagerFactory() {
-        if(emf == null){
+        if(emf == null) {
             emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         }
+
         return emf;
     }
 }
