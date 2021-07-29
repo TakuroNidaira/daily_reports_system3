@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@Table(name = "reports")
+@Table(name = "reports2")
 @NamedQueries({
     @NamedQuery(
         name = "getAllReports",
@@ -60,6 +61,18 @@ public class Report {
 
     @Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
+
+    @Column(name = "start_time", nullable = false)
+    private Time start_time;
+
+    @Column(name = "end_time", nullable = false)
+    private Time end_time;
+
+    @Column(name = "prgress", nullable = false)
+    private Integer progress;
+
+    @Column(name = "project_name", nullable = false)
+    private String project_name;
 
     public Integer getId() {
         return id;
@@ -115,5 +128,38 @@ public class Report {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Time getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Time start_time) {
+        this.start_time = start_time;
+    }
+
+    public Time getEnd_time(){
+        return end_time;
+
+    }
+
+    public void setEnd_time(Time end_time) {
+        this.end_time = end_time;
+    }
+
+    public Integer getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
+    }
+
+    public String getProject_name() {
+        return project_name;
+    }
+
+    public void setProject_name(String project_name){
+        this.project_name = project_name;
     }
 }
