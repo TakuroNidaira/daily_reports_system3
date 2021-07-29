@@ -2,6 +2,7 @@ package controllers.reports;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -45,6 +46,48 @@ public class ReportsUpdateServlet extends HttpServlet {
             r.setTitle(request.getParameter("title"));
             r.setContent(request.getParameter("content"));
             r.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+
+            r.setProgress(Integer.parseInt(request.getParameter("progress")));
+            r.setProject_name(request.getParameter("project_name"));
+
+
+            String start_time = request.getParameter("start_time") + ":00";
+            String end_time = request.getParameter("end_time") + ":00";
+
+            System.out.println(start_time);
+            System.out.println(end_time);
+
+            try{
+                r.setStart_time(Time.valueOf(start_time));
+            }catch(Exception e){
+                try{
+                    r.setEnd_time(Time.valueOf(end_time));
+                }catch(Exception ex){
+                    List<String> errors = ReportValidator.validate(r);
+                    em.close();
+
+                    request.setAttribute("_token", request.getSession().getId());
+                    request.setAttribute("report", r);
+                    request.setAttribute("errors", errors);
+
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
+                    rd.forward(request, response);
+                }
+            }
+
+            try{
+                r.setEnd_time(Time.valueOf(end_time));
+            }catch(Exception e){
+                List<String> errors = ReportValidator.validate(r);
+                em.close();
+
+                request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("report", r);
+                request.setAttribute("errors", errors);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/new.jsp");
+                rd.forward(request, response);
+            }
 
             List<String> errors = ReportValidator.validate(r);
             if(errors.size() > 0) {

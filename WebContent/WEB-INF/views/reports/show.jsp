@@ -18,9 +18,34 @@
                             <td><fmt:formatDate value="${report.report_date}" pattern="yyyy-MM-dd" /></td>
                         </tr>
                         <tr>
+                            <th>プロジェクト名</th>
+                            <td>
+                                <pre><c:out value="${report.project_name}" /></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>プロジェクト状況</th>
+                            <td>
+                                <pre><c:choose><c:when test="${report.progress == 0}">〇</c:when><c:when test="${report.progress == 1}">△</c:when><c:otherwise>✖</c:otherwise></c:choose>
+（〇: On schedule、△: Behind schedule(挽回策有り)、✖: Behind schedule(挽回策無し)）</pre>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>内容</th>
                             <td>
                                 <pre><c:out value="${report.content}" /></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>始業時間</th>
+                            <td>
+                                <pre><c:out value="${report.start_time}" /></pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>終業時間</th>
+                            <td>
+                                <pre><c:out value="${report.end_time}" /></pre>
                             </td>
                         </tr>
                         <tr>
